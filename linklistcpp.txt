@@ -1,0 +1,244 @@
+#include<iostream>
+using namespace std;
+class node{
+    public:
+    int key,data;
+    node* next;
+    public:
+    node()
+    {
+        key=0;
+        data=0;
+        next=NULL;
+    }
+    node(int k, int d)
+    { key =k;
+    data=d;
+    }
+    
+};
+class singlylinkedlist{
+    public:
+    node* head;
+    singlylinkedlist()
+    { head=NULL;
+    }
+    singlylinkedlist(node* n)
+    {
+        head=n;
+    }
+    node*nodeexists(int k)
+    {
+    node* temp=NULL;
+    node*  ptr=head;
+    while(ptr!=NULL)
+    {
+        if(ptr->key==k)
+        {
+            temp=ptr;
+        }
+        ptr=ptr->next;
+    }
+    return temp;
+    }
+    void appendnode(node* n)
+    {
+        if(nodeexists(n->key)!=NULL)
+        {
+            cout<<"node already exist"<<endl;
+        }
+        else
+        {
+            if(head==NULL)
+            {
+                head=n;
+                cout<<"node append"<<endl;
+            }
+            else
+            {
+                node* ptr=head;
+                while(ptr->next!=NULL)
+                {
+                    ptr=ptr->next;
+                }
+                ptr->next=n;
+                cout<<"node append"<<endl;
+            }
+        }
+    }
+    void prependnode(node* n)
+    {
+        if(nodeexists(n->key)!=NULL)
+        {
+            cout<<"node exist"<<endl;
+        }
+        else
+        {
+            n->next=head;
+            head=n;
+            cout<<"node prpend"<<endl;
+        }
+    }
+    void insertnodeafter(int k, node* n)
+    {
+        node* ptr=nodeexists(k);
+        if (ptr==NULL)
+        {
+            cout<<"no node exist with this key value"<<endl;
+        }
+        else
+        {
+            if(nodeexists(n->key)!=NULL)
+            {
+                cout<<"node already exist"<<endl;
+            }
+            else
+            {
+                n->next=ptr->next;
+                ptr->next=n;
+                cout<<"node inserted"<<endl;
+            }
+        }
+            
+            
+    }
+    void deletenodebykey(int k)
+    {
+        if(head==NULL)
+        {
+            cout<<"sinlgy link list is empty"<<endl;
+        }
+        else if(head!=NULL)
+        {
+            if(head->key==k)
+            {
+                head=head->next;
+                cout<<"node is unlinked"<<endl;
+            }
+            else
+            {
+            node* temp=NULL;
+            node* preptr=head;
+            node* curntptr=head->next;
+            while(curntptr!=NULL)
+            { if(curntptr->key==k)
+            {
+                temp=curntptr;
+                curntptr=NULL;
+            }
+            else
+            {
+                preptr=preptr->next;
+                curntptr=curntptr->next;
+            }
+            if(temp!=NULL)
+            {
+                preptr->next=temp->next;
+                cout<<"node unlinked with key value"<<endl;
+            }
+            else
+            {
+                cout<<"node doesnt exust with key value"<<endl;
+            }
+            
+            }}
+                
+        }
+            
+            
+            
+    }      
+void updatenode(int k, int d)
+{
+    node* ptr= nodeexists(k);
+    if(ptr!=NULL)
+    {
+        ptr->data=d;
+        cout<<"node update succeesfully"<<endl;
+    }
+    else
+    {
+        cout<<"node doesnt exists with key vakue"<<endl;
+    }}
+    void printing()
+    {
+        if(head == NULL)
+        {
+            cout<<"no nodexists"<<endl;
+        }
+        else
+        {
+            node* temp=head;
+            while(temp!=NULL)
+            {
+                cout<<"("<<temp->key<<" , "<<temp->data<<")";
+                temp=temp->next;
+            }
+        }
+    }
+    
+};
+int main()
+{singlylinkedlist s;
+    int option;
+    int key1,k1,data1;
+    do
+    {
+        cout<<"what operation do you want to perform"<<endl;
+        cout<<"1. apppend node"<<endl;
+        cout<<"2. prepend node node"<<endl;
+        cout<<"3. insert  node"<<endl;
+        cout<<"4. delete node"<<endl;
+        cout<<"5. update node"<<endl;
+        cout<<"6. print node"<<endl;
+        cout<<"7. clear scrn"<<endl;
+        cin>>option;
+        node* n1=new node();
+        switch(option)
+        {
+            case 1: cout<<"append node operation is called"<<endl;
+            cin>>key1;
+            cin>>data1;
+            n1->key=key1;
+            n1->data=data1;
+            s.appendnode(n1);
+            break;
+            case 2:cout<<"prependnode node operation is called"<<endl;
+            cin>>key1;
+            cin>>data1;
+            n1->key=key1;
+            n1->data=data1;
+            s.prependnode(n1);
+            break;
+            case 3:cout<<"insert the key aftr whivh insrting to be done "<<endl;
+            cin>> k1;
+            cout<<"enter the data and key value"<<endl;
+            cin>>key1;
+            cin>>data1;
+            s.insertnodeafter(k1,n1);
+            break;
+            
+            case 4: cout<<"deletenodebykey"<<endl;
+            cin>>k1;
+            s.deletenodebykey(k1);
+            break;
+            case 5: cout<<"update nodet bye key"<<endl;
+            cin>>data1;
+            cin>>key1;
+            s.updatenode(key1,data1);
+            break;
+            case 6:
+            s.printing();
+            break;
+            case 7:
+            system("cls");
+            break;
+            default:
+            cout<<"enter propr operation"<<endl;
+        }
+    }
+ while(option!=0);
+        
+    
+return 0 ;
+}
